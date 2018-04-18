@@ -1,3 +1,31 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overleaf (WriteLaTeX) Example: Molecular Chemistry Presentation
+%
+% Source: http://www.overleaf.com
+%
+% In these slides we show how Overleaf can be used with standard 
+% chemistry packages to easily create professional presentations.
+% 
+% Feel free to distribute this example, but please keep the referral
+% to overleaf.com
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% How to use Overleaf: 
+%
+% You edit the source code here on the left, and the preview on the
+% right shows you the result within a few seconds.
+%
+% Bookmark this page and share the URL with your co-authors. They can
+% edit at the same time!
+%
+% You can upload figures, bibliographies, custom classes and
+% styles using the files menu.
+%
+% If you're new to LaTeX, the wikibook is a great place to start:
+% http://en.wikibooks.org/wiki/LaTeX
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass{beamer}
 
 % For more themes, color themes and font themes, see:
@@ -106,7 +134,6 @@
 
 \begin{figure}[h]
 	\center{\includegraphics[scale=0.7]{ae}}
-	\caption{Общая схема автоэнкодера}
 	\label{fig:ae}
 \end{figure}
 
@@ -156,10 +183,48 @@
 Рассмотрим работу декодера как некоторый процесс генерации данных $X$, зависящий от скрытых переменных $Z$ - случайных величин.\\
 Пусть:
 \begin{itemize}
-	\item $p(X)$ - вероятностное распределение изображений
-	\item $p(Z)$ - вероятностное распределение скрытых переменных
-	\item $$
+	\item $P(X)$ - вероятностное распределение изображений
+	\item $P(Z)$ - вероятностное распределение скрытых переменных
+	\item $P(Z|X)$ - вероятностное распределение скрытых параметров при заданном изображении $X$, рассматривается как энкодер
+	\item $P(X|Z)$ - вероятностное распределение изображений при заданных скрытых переменных $Z$, рассматривается как декодер
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Автоэнкодеры}{Вариационные автоэнкодеры}
+Справедливо:
+\begin{equation}\label{eq:int}
+P(X) = \int_{Z} P(X|Z)P(Z) dZ
+\end{equation}
+Пространство может быть высокоразмерным, поэтому напрямую хорошо приблизить интеграл не получится. Воспользуемся тем, что для заданного X соответствует небольшое подмножество Z, а для остальных вероятность $P(X|Z) \to 0$. Также при приближении будем семплировать из ``оптимальных'' $Z$. \par\medskip
+Чтобы понимать какие $Z$ ``оптимальные'' вводится распределение $Q(Z|X)$, которое будет показывать для $X$ распределение $Z \thicksim Q$, которое приводит к этому $X$.
+\end{frame}
+
+\begin{frame}{Автоэнкодеры}{Вариационные автоэнкодеры}
+
+Пусть $Q(Z|X)$ будет нормальным распределением:
+\begin{equation}\label{eq:Q}
+Q(Z|X) = N(\mu(X), \Sigma(X)),
+\end{equation}
+где $\mu$ и $\Sigma$ - среднее и матрица ковариации для нормального распределения. \par\medskip
+Таким образом семплирование скрытых параметров идет из нормального распределения с параметрами $\mu$, $\Sigma$. $P(Z|X) также является нормальным распределением$. \par\medskip
+Связь между ~(\ref{eq:int}) и ~(\ref{eq:Q}) выводится из рассмотрения расстояния Кульбака-Лейблера между $Q(Z|X)$ и $P(Z|X)$.
+
+\end{frame}
+
+\begin{frame}{Автоэнкодеры}{Вариационные автоэнкодеры}
+
+\begin{minipage}{0.4\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.7]{vae}
+	\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+	\begin{center}
+		fgy
+	\end{center}
+\end{minipage}
+
 \end{frame}
 
 \end{document}
