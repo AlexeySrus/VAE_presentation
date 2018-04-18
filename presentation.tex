@@ -32,7 +32,7 @@
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Неконтролируемое обучение]{Кластеризация изображений по визуальному подобию с помощью вариационных автоэнкодеров}
-\author{А. Коваленко}
+\author{А.С. Коваленко}
 \institute{ЮФУ}
 \date{\today}
 
@@ -57,7 +57,10 @@
 Разметка данных всегда трудоемкий процесс. Поэтому алгоритмы машинного обучения не требующие данного этапа актуальны. Класс вариационных автоэнкодеров позволяет решить данную проблему.\\
 
 \begin{block}{Поставим задачу:}
-	Пусть имеется набор изображений: $$X = \{I_m\}_{m = 1}^{N}$$
+	Пусть имеется набор изображений:
+	\begin{equation}\label{eq:X}
+		X = \{I_m\}_{m = 1}^{N}
+	\end{equation}
 	Требуется разбить данный набор на \textit{K} классов и ввести операцию сравнения.\\
 	Для произвольного изображения найдем \textit{M} схожих объектов из множества \textit{X}, отсортированных по убыванию визуального подобия:
 	$$I_{input} \notin X,  S = \{I_{m_k}\}_{k=1}^M$$
@@ -121,9 +124,9 @@
 \hfill
 \begin{minipage}{0.4\textwidth}
 \begin{center}
-		$$g - \text{энкордер}, f - \text{декодер},$$
-		$$x - \text{сигнал}, h - \text{код сигнала}$$
-		$$h = g(x), x = f(h)$$
+		$$g - \text{энкордер}, ~f - \text{декодер},$$
+		$$x - \text{сигнал}, ~h - \text{код сигнала}$$
+		$$h = g(x), ~x = f(h)$$
 		\begin{equation}\label{eq:aim_func}
 			x = f(g(x))
 		\end{equation}
@@ -178,24 +181,93 @@ P(X) = \int_{Z} P(X|Z)P(Z) dZ
 Q(Z|X) = N(\mu(X), \Sigma(X)),
 \end{equation}
 где $\mu$ и $\Sigma$ - среднее и матрица ковариации для нормального распределения. \par\medskip
-Таким образом семплирование скрытых параметров идет из нормального распределения с параметрами $\mu$, $\Sigma$. $P(Z|X) также является нормальным распределением$. \par\medskip
+Таким образом семплирование скрытых параметров идет из нормального распределения с параметрами $\mu$, $\Sigma$. $P(Z|X)$ также является нормальным распределением. \par\medskip
 Связь между ~(\ref{eq:int}) и ~(\ref{eq:Q}) выводится из рассмотрения расстояния Кульбака-Лейблера между $Q(Z|X)$ и $P(Z|X)$.
 
 \end{frame}
 
 \begin{frame}{Автоэнкодеры}{Вариационные автоэнкодеры}
 
-\begin{minipage}{0.4\textwidth}
+\begin{figure}[h]
+	\center{\includegraphics[scale=1]{vae}}
+	\label{fig:vae}
+\end{figure}
+
+\end{frame}
+
+\section{Применение вариационных автоэнкодеров к задаче}
+
+\subsection{Пример работы}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Пример работы вариационного автоэнкодера}
+
+\begin{minipage}{0.3\textwidth}
 	\begin{flushleft}
-		\includegraphics[scale=0.7]{vae}
+		\includegraphics[scale=0.37]{stul}
 	\end{flushleft}
 \end{minipage}
 \hfill
-\begin{minipage}{0.4\textwidth}
-	\begin{center}
-		fgy
-	\end{center}
+\begin{minipage}{0.5\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.7]{stul_kernel}
+	\end{flushleft}
 \end{minipage}
+
+\end{frame}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Пример работы вариационного автоэнкодера}
+
+\begin{minipage}{0.3\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.37]{sit}
+	\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.7]{sit_kernel}
+	\end{flushleft}
+\end{minipage}
+
+\end{frame}
+
+\subsection{Кластеризация}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}
+
+Построим множество $H$ следующим образом:
+\begin{equation}\label{eq:H}
+H = \{g(x) | x \in X\},
+\end{equation}
+где $X$ - множество ~(\ref{eq:X}), ~$g$ - вариационный автоэнкодер. \par\medskip
+Теперь понизим размерность множества H с помощью метода главных компонент (PCA) или алгоритма распределенного стохастического выделения соседей (t-SNE):
+\begin{equation}
+	\hat{H} = PCA(H), ~\forall h \in \hat{H} \Rightarrow dim(h) = 2
+\end{equation}
+
+К множеству $\hat{H}$ можно применять классические алгоритмы кластеризации данных, к примеру $k$-средних, предварительно выбрав количество классов.
+
+
+Приведенные выше алгоритмы понижения размерности пространства оптимальны для $H$, в силу того, что все элементы данного пространства получены семплированием из нормального распределения.
+
+\end{frame}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}
+
+\begin{figure}[h]
+	\center{\includegraphics[scale=0.35]{images_p}}
+	\label{fig:images_p}
+\end{figure}
+
+\end{frame}
+
+\subsection{Поиск похожих по визуальному подобию}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Поиск похожих по визуальному подобию}
+
+Пусть $H$, как и в ~(\ref{eq:H}): $$H = \{g(x) | x \in X\}$$
+Подействуем энкодером на входное изображение: $$h_{input} = g(I_{input})$$
+Теперь найдем элементы множества $S$, это будут $M$-ближайших элемента из множества $H$ по евклидовой метрике.
 
 \end{frame}
 
