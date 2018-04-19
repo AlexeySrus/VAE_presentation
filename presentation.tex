@@ -5,11 +5,11 @@
 %
 \mode<presentation>
 {
-	\usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
-	\usecolortheme{default} % or try albatross, beaver, crane, ...
-	\usefonttheme{serif}    % or try default, structurebold, ...
-	\setbeamertemplate{navigation symbols}{}
-	\setbeamertemplate{caption}[numbered]
+  \usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
+  \usecolortheme{default} % or try albatross, beaver, crane, ...
+  \usefonttheme{serif}    % or try default, structurebold, ...
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
 } 
 
 %\usepackage[english]{babel}
@@ -24,18 +24,18 @@
 \graphicspath{{pictures/}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
-
 % On Overleaf, these lines give you sharper preview images.
 % You might want to `comment them out before you export, though.
 \usepackage{pgfpages}
 \pgfpagesuselayout{resize to}[%
-physical paper width=8in, physical paper height=6in]
+  physical paper width=8in, physical paper height=6in]
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Неконтролируемое обучение]{Кластеризация изображений по визуальному подобию с помощью вариационных автоэнкодеров}
-\author{А.С. Коваленко}
-\institute{ЮФУ}
+\author[А.С. Коваленко]{А. С. Коваленко\\ научный руководитель Я. М. Демяненко}
+\institute[ЮФУ]{ЮФУ\\ Институт математики, механики и комптьютерных наук им. И. И. Воровича}
 \date{\today}
+\subject{Computer Science}
 
 \newcommand\myitemize{\ListProperties(Hide=100, Hang=true, Progressive=3ex, Style*=$\star$ )}
 \newcommand\myenumerate{\ListProperties(Space=2\baselineskip)}
@@ -276,9 +276,9 @@ H = \{g(x) | x \in X\},
 \section{Список литературы}
 
 \begin{frame}{Список литературы}
-	\bibliographystyle{abbrv}
-	\bibliography{biblio}
-	\nocite{*}
+\bibliographystyle{abbrv}
+\bibliography{biblio}
+\nocite{*}
 \end{frame}
 
 \end{document}
