@@ -5,11 +5,11 @@
 %
 \mode<presentation>
 {
-  \usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
-  \usecolortheme{default} % or try albatross, beaver, crane, ...
-  \usefonttheme{serif}    % or try default, structurebold, ...
-  \setbeamertemplate{navigation symbols}{}
-  \setbeamertemplate{caption}[numbered]
+	\usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
+	\usecolortheme{default} % or try albatross, beaver, crane, ...
+	\usefonttheme{serif}    % or try default, structurebold, ...
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamertemplate{caption}[numbered]
 } 
 
 %\usepackage[english]{babel}
@@ -24,11 +24,12 @@
 \graphicspath{{pictures/}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
+
 % On Overleaf, these lines give you sharper preview images.
 % You might want to `comment them out before you export, though.
 \usepackage{pgfpages}
 \pgfpagesuselayout{resize to}[%
-  physical paper width=8in, physical paper height=6in]
+physical paper width=8in, physical paper height=6in]
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Неконтролируемое обучение]{Кластеризация изображений по визуальному подобию с помощью вариационных автоэнкодеров}
@@ -38,16 +39,17 @@
 
 \newcommand\myitemize{\ListProperties(Hide=100, Hang=true, Progressive=3ex, Style*=$\star$ )}
 \newcommand\myenumerate{\ListProperties(Space=2\baselineskip)}
+\setbeamertemplate{bibliography item}{}
 
 \begin{document}
-
-\begin{frame}
-  \titlepage
+	
+	\begin{frame}
+	\titlepage
 \end{frame}
 
 % These three lines create an automatically generated table of contents.
 \begin{frame}{Содержание}
-  \tableofcontents
+\tableofcontents
 \end{frame}
 
 \section{Введение}
@@ -57,13 +59,13 @@
 Разметка данных всегда трудоемкий процесс. Поэтому алгоритмы машинного обучения не требующие данного этапа актуальны. Класс вариационных автоэнкодеров позволяет решить данную проблему.\\
 
 \begin{block}{Поставим задачу:}
-	Пусть имеется набор изображений:
-	\begin{equation}\label{eq:X}
-		X = \{I_m\}_{m = 1}^{N}
-	\end{equation}
-	Требуется разбить данный набор на \textit{K} классов и ввести операцию сравнения.\\
-	Для произвольного изображения найдем \textit{M} схожих объектов из множества \textit{X}, отсортированных по убыванию визуального подобия:
-	$$I_{input} \notin X,  S = \{I_{m_k}\}_{k=1}^M$$
+Пусть имеется набор изображений:
+\begin{equation}\label{eq:X}
+X = \{I_m\}_{m = 1}^{N}
+\end{equation}
+Требуется разбить данный набор на \textit{K} классов и ввести операцию сравнения.\\
+Для произвольного изображения найдем \textit{M} схожих объектов из множества \textit{X}, отсортированных по убыванию визуального подобия:
+$$I_{input} \notin X,  S = \{I_{m_k}\}_{k=1}^M$$
 \end{block}
 
 \end{frame}
@@ -76,9 +78,9 @@
 
 Для решения поставленной задачи могут подойти следующие подходы неконтролируемого обучения и обучения с подкреплением:
 \begin{itemize}
-	\item Сиамские нейронные сети
-	\item Ключевые точки (не является алгоритмом машинного обучения)
-	\item Автоэнкодеры
+\item Сиамские нейронные сети
+\item Ключевые точки (не является алгоритмом машинного обучения)
+\item Автоэнкодеры
 \end{itemize}
 
 \end{frame}
@@ -87,11 +89,11 @@
 
 Для решения поставленной задачи могут подойти следующие подходы неконтролируемого обучения и обучения с подкреплением:
 \begin{itemize}
-	\item Сиамские нейронные сети
-	\item Ключевые точки (не является алгоритмом машинного обучения)
-	\begin{block}
-		\item Автоэнкодеры
-	\end{block}
+\item Сиамские нейронные сети
+\item Ключевые точки (не является алгоритмом машинного обучения)
+\begin{block}
+\item Автоэнкодеры
+\end{block}
 \end{itemize}
 
 \end{frame}
@@ -104,12 +106,12 @@
 \begin{frame}{Автоэнкодеры}{Принцип работы}
 
 \begin{block}{Определение:}
-	\textbf{Автоэнкодеры} --- это нейронные сети прямого распространения, которые восстанавливают входной сигнал на выходе.
+\textbf{Автоэнкодеры} --- это нейронные сети прямого распространения, которые восстанавливают входной сигнал на выходе.
 \end{block}
 
 \begin{figure}[h]
-	\center{\includegraphics[scale=0.7]{ae}}
-	\label{fig:ae}
+\center{\includegraphics[scale=0.7]{ae}}
+\label{fig:ae}
 \end{figure}
 
 \end{frame}
@@ -118,18 +120,18 @@
 
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft}
-	\includegraphics[scale=0.35]{ae_1}
+\includegraphics[scale=0.35]{ae_1}
 \end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.4\textwidth}
 \begin{center}
-		$$g - \text{энкордер}, ~f - \text{декодер},$$
-		$$x - \text{сигнал}, ~h - \text{код сигнала}$$
-		$$h = g(x), ~x = f(h)$$
-		\begin{equation}\label{eq:aim_func}
-			x = f(g(x))
-		\end{equation}
+$$g - \text{энкордер}, ~f - \text{декодер},$$
+$$x - \text{сигнал}, ~h - \text{код сигнала}$$
+$$h = g(x), ~x = f(h)$$
+\begin{equation}\label{eq:aim_func}
+x = f(g(x))
+\end{equation}
 \end{center}
 \end{minipage}
 
@@ -145,9 +147,9 @@
 где $\omega$ - параметры автоэнкодера
 
 \begin{block}{Определение:}
-	\textbf{Разряженным} называется автоэнкодер, для которого критерий обучения включает также минимизацию разреженности $\Omega(h)$ на кодовом слове $h$:
-	$$\min_{\omega} L(x, f(g(x))) + \Omega(h),$$
-	где $\Omega(h)$ - обычный регуляризатор (пусть $L_1$), $\Omega(h) = \lambda*\|h\|$
+\textbf{Разряженным} называется автоэнкодер, для которого критерий обучения включает также минимизацию разреженности $\Omega(h)$ на кодовом слове $h$:
+$$\min_{\omega} L(x, f(g(x))) + \Omega(h),$$
+где $\Omega(h)$ - обычный регуляризатор (пусть $L_1$), $\Omega(h) = \lambda*\|h\|$
 \end{block}
 
 \end{frame}
@@ -158,10 +160,10 @@
 Рассмотрим работу декодера как некоторый процесс генерации данных $X$, зависящий от скрытых переменных $Z$ - случайных величин.\\
 Пусть:
 \begin{itemize}
-	\item $P(X)$ - вероятностное распределение изображений
-	\item $P(Z)$ - вероятностное распределение скрытых переменных
-	\item $P(Z|X)$ - вероятностное распределение скрытых параметров при заданном изображении $X$, рассматривается как энкодер
-	\item $P(X|Z)$ - вероятностное распределение изображений при заданных скрытых переменных $Z$, рассматривается как декодер
+\item $P(X)$ - вероятностное распределение изображений
+\item $P(Z)$ - вероятностное распределение скрытых переменных
+\item $P(Z|X)$ - вероятностное распределение скрытых параметров при заданном изображении $X$, рассматривается как энкодер
+\item $P(X|Z)$ - вероятностное распределение изображений при заданных скрытых переменных $Z$, рассматривается как декодер
 \end{itemize}
 \end{frame}
 
@@ -189,8 +191,8 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \begin{frame}{Автоэнкодеры}{Вариационные автоэнкодеры}
 
 \begin{figure}[h]
-	\center{\includegraphics[scale=1]{vae}}
-	\label{fig:vae}
+\center{\includegraphics[scale=1]{vae}}
+\label{fig:vae}
 \end{figure}
 
 \end{frame}
@@ -202,15 +204,15 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Пример работы вариационного автоэнкодера}
 
 \begin{minipage}{0.3\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.37]{stul}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.37]{stul}
+\end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.5\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.7]{stul_kernel}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.7]{stul_kernel}
+\end{flushleft}
 \end{minipage}
 
 \end{frame}
@@ -218,15 +220,15 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Пример работы вариационного автоэнкодера}
 
 \begin{minipage}{0.3\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.37]{sit}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.37]{sit}
+\end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.5\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.7]{sit_kernel}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.7]{sit_kernel}
+\end{flushleft}
 \end{minipage}
 
 \end{frame}
@@ -242,7 +244,7 @@ H = \{g(x) | x \in X\},
 где $X$ - множество ~(\ref{eq:X}), ~$g$ - вариационный автоэнкодер. \par\medskip
 Теперь понизим размерность множества H с помощью метода главных компонент (PCA) или алгоритма распределенного стохастического выделения соседей (t-SNE):
 \begin{equation}
-	\hat{H} = PCA(H), ~\forall h \in \hat{H} \Rightarrow dim(h) = 2
+\hat{H} = PCA(H), ~\forall h \in \hat{H} \Rightarrow dim(h) = 2
 \end{equation}
 
 К множеству $\hat{H}$ можно применять классические алгоритмы кластеризации данных, к примеру $k$-средних, предварительно выбрав количество классов.
@@ -255,8 +257,8 @@ H = \{g(x) | x \in X\},
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}
 
 \begin{figure}[h]
-	\center{\includegraphics[scale=0.35]{images_p}}
-	\label{fig:images_p}
+\center{\includegraphics[scale=0.35]{images_p}}
+\label{fig:images_p}
 \end{figure}
 
 \end{frame}
@@ -269,6 +271,14 @@ H = \{g(x) | x \in X\},
 Подействуем энкодером на входное изображение: $$h_{input} = g(I_{input})$$
 Теперь найдем элементы множества $S$, это будут $M$-ближайших элемента из множества $H$ по евклидовой метрике.
 
+\end{frame}
+
+\section{Список литературы}
+
+\begin{frame}{Список литературы}
+	\bibliographystyle{abbrv}
+	\bibliography{biblio}
+	\nocite{*}
 \end{frame}
 
 \end{document}
