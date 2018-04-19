@@ -32,14 +32,16 @@
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Неконтролируемое обучение]{Кластеризация изображений по визуальному подобию с помощью вариационных автоэнкодеров}
-\author[А.С. Коваленко]{А. С. Коваленко\\ научный руководитель Я. М. Демяненко}
-\institute[ЮФУ]{ЮФУ\\ Институт математики, механики и комптьютерных наук им. И. И. Воровича}
+\author[А.С. Коваленко]{А. С. Коваленко}
+\institute[ЮФУ]{ЮФУ\\ Институт математики, механики и комптьютерных наук им. И. И. Воровича
+					\\ научный руководитель: доцент кафедры ПМП, к.ф.-м.н. Я. М. Демяненко}
 \date{\today}
 \subject{Computer Science}
 
 \newcommand\myitemize{\ListProperties(Hide=100, Hang=true, Progressive=3ex, Style*=$\star$ )}
 \newcommand\myenumerate{\ListProperties(Space=2\baselineskip)}
 \setbeamertemplate{bibliography item}{}
+
 
 \begin{document}
 	
@@ -199,6 +201,51 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 
 \section{Применение вариационных автоэнкодеров к задаче}
 
+\subsection{Архитектура построенного автоэнкодера}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Архитектура построенного автоэнкодера}
+
+\begin{minipage}{0.1\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.115]{encoder}
+	\end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.1\textwidth}
+	\begin{center}
+		\includegraphics[scale=0.12]{decoder}
+	\end{center}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+	\begin{flushleft}
+		\includegraphics[scale=0.35]{autoencoder}
+	\end{flushleft}
+\end{minipage}
+
+\end{frame}
+
+\subsection{Скорость обучения}
+
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Скорость обучения}
+
+\begin{figure}[t]
+	\center{\includegraphics[scale=0.2]{vae_summary}}
+	\label{fig:vae}
+\end{figure}
+
+Используемые вычислительные ресурсы:
+\begin{itemize}
+	\item CPU: Intel i7-4770K, RAM: 16 Gb
+	\item GPU: Nvidia GTX 1080Ti 11 Gb
+	\item System: Linux Mint 18.2 Sonya x86\_64 
+\end{itemize}
+
+Время обучения одной эпохи на наборе из 154 644 изображений составляет 5 часов 7 минуты 23 секунды.
+Оптимальное количество эпох - от 3 (15 часов).
+
+\end{frame}
+
 \subsection{Пример работы}
 
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Пример работы вариационного автоэнкодера}
@@ -211,7 +258,7 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \hfill
 \begin{minipage}{0.5\textwidth}
 \begin{flushleft}
-\includegraphics[scale=0.7]{stul_kernel}
+\includegraphics[scale=0.5]{stul_kernel}
 \end{flushleft}
 \end{minipage}
 
@@ -227,7 +274,7 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \hfill
 \begin{minipage}{0.5\textwidth}
 \begin{flushleft}
-\includegraphics[scale=0.7]{sit_kernel}
+\includegraphics[scale=0.5]{sit_kernel}
 \end{flushleft}
 \end{minipage}
 
@@ -243,22 +290,28 @@ H = \{g(x) | x \in X\},
 \end{equation}
 где $X$ - множество ~(\ref{eq:X}), ~$g$ - вариационный автоэнкодер. \par\medskip
 Теперь понизим размерность множества H с помощью метода главных компонент (PCA) или алгоритма распределенного стохастического выделения соседей (t-SNE):
-\begin{equation}
-\hat{H} = PCA(H), ~\forall h \in \hat{H} \Rightarrow dim(h) = 2
+\begin{equation}\label{eq:hH}
+\hat{H} = \text{t-SNE}(H), ~\forall h \in \hat{H} \Rightarrow dim(h) = 2
 \end{equation}
 
 К множеству $\hat{H}$ можно применять классические алгоритмы кластеризации данных, к примеру $k$-средних, предварительно выбрав количество классов.
 
+\end{frame}
 
-Приведенные выше алгоритмы понижения размерности пространства оптимальны для $H$, в силу того, что все элементы данного пространства получены семплированием из нормального распределения.
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}{Сравнение PCA и t-SNE}
+
+\begin{figure}[h]{PCA}
+	\center{\includegraphics[scale=0.3]{pca}}
+	\label{fig:images_pca}
+\end{figure}
 
 \end{frame}
 
-\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}
+\begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}{Сравнение PCA и t-SNE}
 
-\begin{figure}[h]
-\center{\includegraphics[scale=0.35]{images_p}}
-\label{fig:images_p}
+\begin{figure}[h]{t-SNE}
+\center{\includegraphics[scale=0.3]{images_p}}
+\label{fig:images_t_sne}
 \end{figure}
 
 \end{frame}
