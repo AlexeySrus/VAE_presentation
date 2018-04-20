@@ -5,11 +5,11 @@
 %
 \mode<presentation>
 {
-  \usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
-  \usecolortheme{default} % or try albatross, beaver, crane, ...
-  \usefonttheme{serif}    % or try default, structurebold, ...
-  \setbeamertemplate{navigation symbols}{}
-  \setbeamertemplate{caption}[numbered]
+	\usetheme{Madrid}       % or try default, Darmstadt, Warsaw, ...
+	\usecolortheme{default} % or try albatross, beaver, crane, ...
+	\usefonttheme{serif}    % or try default, structurebold, ...
+	\setbeamertemplate{navigation symbols}{}
+	\setbeamertemplate{caption}[numbered]
 } 
 
 %\usepackage[english]{babel}
@@ -28,13 +28,13 @@
 % You might want to `comment them out before you export, though.
 \usepackage{pgfpages}
 \pgfpagesuselayout{resize to}[%
-  physical paper width=8in, physical paper height=6in]
+physical paper width=8in, physical paper height=6in]
 
 % Here's where the presentation starts, with the info for the title slide
 \title[Неконтролируемое обучение]{Кластеризация изображений по визуальному подобию с помощью вариационных автоэнкодеров}
 \author[А.С. Коваленко]{А. С. Коваленко}
 \institute[ЮФУ]{ЮФУ\\ Институт математики, механики и комптьютерных наук им. И. И. Воровича
-					\\ научный руководитель: доцент кафедры ПМП, к.ф.-м.н. Я. М. Демяненко}
+	\\ научный руководитель: доцент кафедры ПМП, к.ф.-м.н. Я. М. Демяненко}
 \date{\today}
 \subject{Computer Science}
 
@@ -143,7 +143,7 @@ x = f(g(x))
 
 \begin{frame}{Автоэнкодеры}{Разряженные автоэнкодеры}
 Автоэнкодер при обучении стремится аппроксимировать \text{функцию ~(\ref{eq:aim_func}):} $$x = f(g(x)),$$ минимизируя заданный функционал ошибки:
-\begin{equation}
+\begin{equation}\label{eq:L}
 \min_{\omega} L(x, f(g(x))),
 \end{equation}
 где $\omega$ - параметры автоэнкодера
@@ -186,7 +186,7 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \end{equation}
 где $\mu$ и $\Sigma$ - среднее и матрица ковариации для нормального распределения. \par\medskip
 Таким образом семплирование скрытых параметров идет из нормального распределения с параметрами $\mu$, $\Sigma$. $P(Z|X)$ также является нормальным распределением. \par\medskip
-Связь между ~(\ref{eq:int}) и ~(\ref{eq:Q}) выводится из рассмотрения расстояния Кульбака-Лейблера между $Q(Z|X)$ и $P(Z|X)$.
+Функционал ошибки для обучения ~(\ref{eq:L}) выводится из рассмотрения расстояния Кульбака-Лейблера между $Q(Z|X)$ и $P(Z|X)$.
 
 \end{frame}
 
@@ -206,21 +206,21 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Архитектура построенного автоэнкодера}
 
 \begin{minipage}{0.1\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.115]{encoder}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.115]{encoder}
+\end{flushleft}
 \end{minipage}
 \hfill
 \begin{minipage}{0.1\textwidth}
-	\begin{center}
-		\includegraphics[scale=0.12]{decoder}
-	\end{center}
+\begin{center}
+\includegraphics[scale=0.12]{decoder}
+\end{center}
 \end{minipage}
 \hfill
 \begin{minipage}{0.4\textwidth}
-	\begin{flushleft}
-		\includegraphics[scale=0.35]{autoencoder}
-	\end{flushleft}
+\begin{flushleft}
+\includegraphics[scale=0.35]{autoencoder}
+\end{flushleft}
 \end{minipage}
 
 \end{frame}
@@ -230,15 +230,16 @@ Q(Z|X) = N(\mu(X), \Sigma(X)),
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Скорость обучения}
 
 \begin{figure}[t]
-	\center{\includegraphics[scale=0.2]{vae_summary}}
-	\label{fig:vae}
+\center{\includegraphics[scale=0.2]{vae_summary}}
+\label{fig:vae}
 \end{figure}
 
-Используемые вычислительные ресурсы:
+Используемые вычислительные и программные ресурсы:
 \begin{itemize}
-	\item CPU: Intel i7-4770K, RAM: 16 Gb
-	\item GPU: Nvidia GTX 1080Ti 11 Gb
-	\item System: Linux Mint 18.2 Sonya x86\_64 
+\item CPU: Intel i7-4770K, RAM: 16 Gb
+\item GPU: Nvidia GTX 1080Ti 11 Gb
+\item System: Linux Mint 18.2 Sonya x86\_64
+\item Realisation: Keras(2.1.3) + Tensorflow(1.1.0) + CuDNN(7.1)
 \end{itemize}
 
 Время обучения одной эпохи на наборе из 154 644 изображений составляет 5 часов 7 минуты 23 секунды.
@@ -301,8 +302,8 @@ H = \{g(x) | x \in X\},
 \begin{frame}{Применение вариационных автоэнкодеров к задаче}{Кластеризация}{Сравнение PCA и t-SNE}
 
 \begin{figure}[h]{PCA}
-	\center{\includegraphics[scale=0.3]{pca}}
-	\label{fig:images_pca}
+\center{\includegraphics[scale=0.3]{pca}}
+\label{fig:images_pca}
 \end{figure}
 
 \end{frame}
